@@ -1,0 +1,5 @@
+A Replacement for the Sencha Touch 2 Ext.field.TextArea
+=======================================================
+
+- Provides a popup editor to give full-screen editing
+- Enables the scrolling of the text area
