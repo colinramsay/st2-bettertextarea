@@ -72,7 +72,7 @@ Ext.define('Ext.ux.field.BetterTextArea', {
 
 
 	onTouchMove: function(e) {
-		Ext.get('ext-element-14').dom.scrollTop += (e.deltaY / 2.0);
+		this.editorPanel.down('textareafield').element.down('textarea').dom.scrollTop += (e.deltaY / 2.0);
 	},
 
 
