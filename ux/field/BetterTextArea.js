@@ -67,7 +67,10 @@ Ext.define('Ext.ux.field.BetterTextArea', {
 		panel.query('button')[1].on('tap', this.onCancel, this, { single: true });
 		panel.down('textareafield').setHeight(panel.element.down('.x-panel-inner').getHeight());
 		panel.down('textareafield').setWidth(panel.element.down('.x-panel-inner').getWidth());
-		panel.down('textareafield').focus();
+
+		if(!this.getReadOnly()) {
+			panel.down('textareafield').focus();
+		}
 	},
 
 
