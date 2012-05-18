@@ -34,6 +34,7 @@ Ext.define('Ext.ux.field.BetterTextArea', {
 
 	initialize: function() {
 		this.callParent();
+		this.element.on('focus', function() { this.blur(); }, this);
 		this.element.on('tap', this.onFormFieldTap, this);
 	},
 
