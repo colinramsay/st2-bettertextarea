@@ -10,7 +10,7 @@ Ext.define('Ext.ux.field.BetterTextArea', {
 
 	config: {
 		clearIcon: false,
-		scrollModifier: 2.0,
+		scrollModifier: 1.8,
 		editorMargin: 20,
 
 		editorPanel: {
