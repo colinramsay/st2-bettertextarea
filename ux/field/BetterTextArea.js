@@ -99,7 +99,9 @@ Ext.define('Ext.ux.field.BetterTextArea', {
 
 		if(!this.getReadOnly()) {
 			this.prepareForKeyboard();
+			panel.query('button')[1].show();
 		} else {
+			panel.query('button')[1].hide();
 			panel.setCentered(true);
 		}
 	},
