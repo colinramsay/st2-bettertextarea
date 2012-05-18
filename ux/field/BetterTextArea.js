@@ -10,6 +10,8 @@ Ext.define('Ext.ux.field.BetterTextArea', {
 
 	config: {
 		clearIcon: false,
+		scrollModifier: 2.0,
+		editorMargin: 20,
 
 		editorPanel: {
 			xtype: 'panel',
@@ -51,17 +53,44 @@ Ext.define('Ext.ux.field.BetterTextArea', {
 
 	onAccept: function() {
 		this.setValue(this.editorPanel.down('textareafield').getValue());
-		this.editorPanel.hide();
+		this.getEditorPanel().hide();
 	},
 
 
 	onCancel: function() {
-		this.editorPanel.hide();
+		this.getEditorPanel().hide();
+	},
+
+
+	setEditorHeight: function(height) {
+		var editor = this.getEditorPanel();
+
+		editor.setHeight(height);
+		editor.down('textareafield').setHeight(editor.element.down('.x-docking-vertical').getHeight() - editor.down('toolbar').element.getHeight());
+	},
+
+
+	prepareForKeyboard: function() {
+		this.setEditorHeight(Ext.getBody().getHeight() * 0.65);
+		this.getEditorPanel().setTop(5);
+		this.getEditorPanel().setLeft(this.getEditorMargin() / 2);
+		this.getEditorPanel().down('textareafield').focus();
+		Ext.getBody().dom.scrollTop = 0;
+	},
+
+
+	setEditorFullScreen: function() {
+		var editor = this.getEditorPanel();
+
+		editor.setWidth(Ext.getBody().getWidth() - this.getEditorMargin());
+		editor.setHeight(Ext.getBody().getHeight() - this.getEditorMargin());
+
+		editor.down('textareafield').setHeight(editor.element.down('.x-docking-vertical').getHeight() - editor.down('toolbar').element.getHeight());
 	},
 
 
 	onEditorPanelPainted: function() {
-		var panel = this.editorPanel;
+		var panel = this.getEditorPanel();
 
 		panel.query('button')[0].on('tap', this.onAccept, this, { single: true });
 		panel.query('button')[1].on('tap', this.onCancel, this, { single: true });
@@ -69,13 +98,15 @@ Ext.define('Ext.ux.field.BetterTextArea', {
 		panel.down('textareafield').setWidth(panel.element.down('.x-panel-inner').getWidth());
 
 		if(!this.getReadOnly()) {
-			panel.down('textareafield').focus();
+			this.prepareForKeyboard();
+		} else {
+			panel.setCentered(true);
 		}
 	},
 
 
 	onTouchMove: function(e) {
-		this.editorPanel.down('textareafield').element.down('textarea').dom.scrollTop -= (e.deltaY / 2.0);
+		this.getEditorPanel().down('textareafield').element.down('textarea').dom.scrollTop -= (e.deltaY / this.getScrollModifier());
 	},
 
 
@@ -84,9 +115,10 @@ Ext.define('Ext.ux.field.BetterTextArea', {
 
 		if(!this.isInitialized) {
 			this.isInitialized = true;
-			editor.setWidth(Ext.getBody().getWidth() - 20 );
-			editor.setHeight(Ext.getBody().getHeight() - 20);
+			this.setEditorFullScreen();
 			Ext.Viewport.add(editor);
+		} else {
+			this.setEditorFullScreen();
 		}
 
 		editor.down('textareafield').setValue(this.getValue());
