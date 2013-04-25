@@ -67,7 +67,7 @@ Ext.define('Ext.ux.field.BetterTextArea', {
 		var editor = this.getEditorPanel();
 
 		editor.setHeight(height);
-		editor.down('textareafield').setHeight(editor.element.down('.x-docking-vertical').getHeight() - editor.down('toolbar').element.getHeight());
+		editor.down('textareafield').setHeight(editor.element.down('.x-dock-vertical').getHeight() - editor.down('toolbar').element.getHeight());
 	},
 
 
@@ -86,7 +86,7 @@ Ext.define('Ext.ux.field.BetterTextArea', {
 		editor.setWidth(Ext.getBody().getWidth() - this.getEditorMargin());
 		editor.setHeight(Ext.getBody().getHeight() - this.getEditorMargin());
 
-		editor.down('textareafield').setHeight(editor.element.down('.x-docking-vertical').getHeight() - editor.down('toolbar').element.getHeight());
+		editor.down('textareafield').setHeight(editor.element.down('.x-dock-vertical').getHeight() - editor.down('toolbar').element.getHeight());
 	},
 
 
